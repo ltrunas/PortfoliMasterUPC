@@ -40,6 +40,7 @@ header.hero{padding:26px 0 8px}
 .monitor::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
 .safe{position:absolute;border:1px dashed rgba(255,255,255,.16);pointer-events:none}
 .safe.a{inset:5%}.safe.t{inset:10%}
+.kicker .ci{vertical-align:-3px;margin-right:6px}
 .kicker{font:700 13px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
 .monitor h1{font:400 clamp(44px,9vw,104px)/.95 var(--disp);letter-spacing:.03em;margin:.12em 0 0}
 .lower{position:absolute;left:0;bottom:48px;display:flex;animation:slidein .9s .3s both cubic-bezier(.2,.8,.2,1)}
@@ -287,7 +288,7 @@ footer{margin-top:10px;padding:0 0 50px;text-align:center;color:var(--muted);fon
 (function(){
 var T={ca:{cl_prod:"PRODUCCIÓ",cl_scene:"ESCENA",cl_take:"PRESA",cl_dir:"DIRECTORA",cl_date:"DATA",tl_hint:"Clica la regla o arrossega el cap de reproducció. Clica un clip per veure'n el detall. 1 dia = 1 segon.",play_a:"▶ Reproduir",play_b:"⏸ Pausa",goto_t:"⏮ Avui",mon_before:"Abans de començar el curs",mon_after:"Curs finalitzat",mon_next:"Pròxim lliurament",mon_none:"Cap lliurament pendent",mon_gap:"Entre sessions",dv:["Cas + política","CoRubrics","Portfoli parcial","Portfoli final"],dvf:["Lliurament: cas pràctic i política (18/10)","Lliurament: CoRubrics (06/11)","Lliurament parcial del portfoli (12/12)","Lliurament final del portfoli (16/02)"],
 btn_todo:"Amaga els quadres per completar",btn_todo2:"Mostra els quadres per completar",
-kicker:"Portfoli personal · Curs 2026-27",
+kicker:`<svg class="ci" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.4 5.2l17-2.2.7 4.6-17 2.2z M8 4.6l3.2 4.4 M13 3.9l3.2 4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> Portfoli personal · Curs 2026-27`,
 lead:"Professora de Mitjans Audiovisuals i estudiant del Màster en Formació del Professorat. Aquest portfoli recull el meu procés d'aprenentatge a Antecedents i orientació disciplinar a la formació professional.",
 chip1:"Màster Formació del Professorat · UPC",chip2:"Docent FP · EMAV",center:"Antecedents · FP",hint:"Clica un clip del projecte per obrir-lo",
 h_pres:"Presentació",h_rec:"Recurs docent",h_act:"Activitats",h_apo:"Aportacions",h_tl:"Cronologia",h_ia:"Ús de la IA",
@@ -331,7 +332,7 @@ footer:"Portfoli de Laura Trunas Villalobos · Màster en Formació del Professo
 
 es:{cl_prod:"PRODUCCIÓN",cl_scene:"ESCENA",cl_take:"TOMA",cl_dir:"DIRECTORA",cl_date:"FECHA",tl_hint:"Haz clic en la regla o arrastra el cabezal. Clic en un clip para ver el detalle. 1 día = 1 segundo.",play_a:"▶ Reproducir",play_b:"⏸ Pausa",goto_t:"⏮ Hoy",mon_before:"Antes de empezar el curso",mon_after:"Curso finalizado",mon_next:"Próxima entrega",mon_none:"Ninguna entrega pendiente",mon_gap:"Entre sesiones",dv:["Caso + política","CoRubrics","Portafolio parcial","Portafolio final"],dvf:["Entrega: caso práctico y política (18/10)","Entrega: CoRubrics (06/11)","Entrega parcial del portafolio (12/12)","Entrega final del portafolio (16/02)"],
 btn_todo:"Ocultar cuadros por completar",btn_todo2:"Mostrar cuadros por completar",
-kicker:"Portafolio personal · Curso 2026-27",
+kicker:`<svg class="ci" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.4 5.2l17-2.2.7 4.6-17 2.2z M8 4.6l3.2 4.4 M13 3.9l3.2 4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> Portafolio personal · Curso 2026-27`,
 lead:"Profesora de Medios Audiovisuales y estudiante del Máster en Formación del Profesorado. Este portafolio recoge mi proceso de aprendizaje en Antecedentes y orientación disciplinar a la formación profesional.",
 chip1:"Máster Formación del Profesorado · UPC",chip2:"Docente FP · EMAV",center:"Antecedentes · FP",hint:"Haz clic en un clip del proyecto para abrirlo",
 h_pres:"Presentación",h_rec:"Recurso docente",h_act:"Actividades",h_apo:"Aportaciones",h_tl:"Cronología",h_ia:"Uso de la IA",
@@ -375,7 +376,7 @@ footer:"Portafolio de Laura Trunas Villalobos · Máster en Formación del Profe
 
 en:{cl_prod:"PRODUCTION",cl_scene:"SCENE",cl_take:"TAKE",cl_dir:"DIRECTOR",cl_date:"DATE",tl_hint:"Click the ruler or drag the playhead. Click a clip for details. 1 day = 1 second.",play_a:"▶ Play",play_b:"⏸ Pause",goto_t:"⏮ Today",mon_before:"Before the course starts",mon_after:"Course finished",mon_next:"Next delivery",mon_none:"No pending delivery",mon_gap:"Between sessions",dv:["Case + policy","CoRubrics","Partial portfolio","Final portfolio"],dvf:["Delivery: case study and policy (18/10)","Delivery: CoRubrics (06/11)","Partial portfolio delivery (12/12)","Final portfolio delivery (16/02)"],
 btn_todo:"Hide to-complete boxes",btn_todo2:"Show to-complete boxes",
-kicker:"Personal portfolio · 2026-27",
+kicker:`<svg class="ci" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 9h18v11a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M3.4 5.2l17-2.2.7 4.6-17 2.2z M8 4.6l3.2 4.4 M13 3.9l3.2 4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg> Personal portfolio · 2026-27`,
 lead:"Audiovisual Media teacher and student of the Master's in Teacher Training. This portfolio gathers my learning process in Background and Disciplinary Orientation in Vocational Education.",
 chip1:"Teacher Training Master · UPC",chip2:"VET teacher · EMAV",center:"Background · VET",hint:"Click a project clip to open it",
 h_pres:"About me",h_rec:"Teaching resource",h_act:"Activities",h_apo:"Contributions",h_tl:"Timeline",h_ia:"Use of AI",
