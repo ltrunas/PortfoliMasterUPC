@@ -71,6 +71,7 @@ header.hero{padding:26px 0 8px}
 .clipcard .thumb::before,.clipcard .thumb::after{content:"";position:absolute;top:0;bottom:0;width:9px;background:#000;
   background-image:radial-gradient(circle,#555 2px,transparent 2.5px);background-size:9px 12px}
 .clipcard .thumb::before{left:0}.clipcard .thumb::after{right:0}
+.clipcard .thumb svg{width:34%;max-width:54px;height:auto;color:#fff;opacity:.95;filter:drop-shadow(0 2px 4px rgba(0,0,0,.4))}
 .clipcard .no{position:absolute;right:14px;bottom:4px;font:700 11px var(--mono);font-style:normal;background:rgba(0,0,0,.65);padding:0 5px;border-radius:2px;color:#fff}
 .clipcard .nm{display:block;margin-top:7px;font:600 13px Inter,sans-serif;color:var(--ink)}
 .clipcard:hover .thumb,.clipcard:focus-visible .thumb{border-color:var(--teal)}
@@ -197,12 +198,12 @@ footer{margin-top:10px;padding:0 0 50px;text-align:center;color:var(--muted);fon
   <div class="bin" role="navigation" aria-label="Menu">
     <div class="binhead"><span>PROJECT · BIN</span><span data-i18n="center"></span></div>
     <div class="bingrid">
-      <button class="clipcard" data-go="presentacio"><span class="thumb t1">🎬<i class="no">01</i></span><span class="nm" data-i18n="h_pres"></span></button>
-      <button class="clipcard" data-go="recurs"><span class="thumb t2">📖<i class="no">02</i></span><span class="nm" data-i18n="h_rec"></span></button>
-      <button class="clipcard" data-go="activitats"><span class="thumb t3">🎞️<i class="no">03</i></span><span class="nm" data-i18n="h_act"></span></button>
-      <button class="clipcard" data-go="aportacions"><span class="thumb t4">🎙️<i class="no">04</i></span><span class="nm" data-i18n="h_apo"></span></button>
-      <button class="clipcard" data-go="cronologia"><span class="thumb t5">⏱️<i class="no">05</i></span><span class="nm" data-i18n="h_tl"></span></button>
-      <button class="clipcard" data-go="ia"><span class="thumb t6">🤖<i class="no">06</i></span><span class="nm" data-i18n="h_ia"></span></button>
+      <button class="clipcard" data-go="presentacio"><span class="thumb t1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="14" height="12" rx="2"/><path d="M16 10l6-3v10l-6-3z"/></svg><i class="no">01</i></span><span class="nm" data-i18n="h_pres"></span></button>
+      <button class="clipcard" data-go="recurs"><span class="thumb t2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15v-3a8 8 0 0 1 16 0v3"/><rect x="3" y="14" width="4" height="7" rx="1.5"/><rect x="17" y="14" width="4" height="7" rx="1.5"/></svg><i class="no">02</i></span><span class="nm" data-i18n="h_rec"></span></button>
+      <button class="clipcard" data-go="activitats"><span class="thumb t3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="6.5" r="1.6"/><circle cx="17" cy="14.5" r="1.6"/><circle cx="7" cy="14.5" r="1.6"/></svg><i class="no">03</i></span><span class="nm" data-i18n="h_act"></span></button>
+      <button class="clipcard" data-go="aportacions"><span class="thumb t4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v4M8 22h8"/></svg><i class="no">04</i></span><span class="nm" data-i18n="h_apo"></span></button>
+      <button class="clipcard" data-go="cronologia"><span class="thumb t5"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="8" height="4" rx="1"/><rect x="13" y="5" width="8" height="4" rx="1"/><rect x="3" y="13" width="12" height="4" rx="1"/><path d="M12 2v20"/></svg><i class="no">05</i></span><span class="nm" data-i18n="h_tl"></span></button>
+      <button class="clipcard" data-go="ia"><span class="thumb t6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="6" width="12" height="12" rx="2"/><rect x="10" y="10" width="4" height="4"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></svg><i class="no">06</i></span><span class="nm" data-i18n="h_ia"></span></button>
     </div>
     <p class="hint" data-i18n="hint"></p>
   </div>
