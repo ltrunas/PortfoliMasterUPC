@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portfoli · Laura Trunas · Antecedents FP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0b0d11; --panel:#151920; --panel2:#1c212b; --line:#2a303c; --ink:#e9ecf3; --muted:#8f98aa;
+  --accent:#ff7a1a; --teal:#2dd4bf; --rec:#ff3b3b; --todo:rgba(255,122,26,.10);
+  --mono:'JetBrains Mono','Courier New',monospace; --disp:'Bebas Neue',Impact,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;color:var(--ink);font:16px/1.65 Inter,system-ui,sans-serif;background:var(--bg);
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:40px 40px}
+h1,h2,h3{margin:0 0 .5em;line-height:1.1}
+h3{font-size:19px}
+a{color:var(--teal)}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.muted{color:var(--muted)}
+
+/* app bar */
+.bar{position:sticky;top:0;z-index:20;background:rgba(11,13,17,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:8px;padding-top:8px;padding-bottom:8px;flex-wrap:wrap}
+.brand{font:700 13px var(--mono);letter-spacing:.06em;margin-right:auto;color:var(--ink)}
+.brand i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--rec);margin-right:8px;animation:blink 2.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.pill{border:1px solid var(--line);background:var(--panel2);color:var(--ink);border-radius:6px;padding:5px 12px;font:600 12px var(--mono);cursor:pointer}
+.pill:hover{border-color:var(--accent)}
+.pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#0b0d11}
+.colorbars{height:8px;background:linear-gradient(90deg,#c0c0c0 0 14.28%,#c0c000 0 28.56%,#00c0c0 0 42.84%,#00c000 0 57.12%,#c000c0 0 71.4%,#c00000 0 85.68%,#0000c0 0 100%)}
+
+/* program monitor (hero) */
+header.hero{padding:26px 0 8px}
+.monitor{position:relative;min-height:clamp(290px,46vw,440px);background:radial-gradient(ellipse at 50% 40%,#232a38 0,#0a0c10 75%);border:2px solid #2d3340;border-radius:10px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px 24px 70px;
+  box-shadow:0 18px 40px rgba(0,0,0,.5),inset 0 0 80px rgba(0,0,0,.6)}
+.monitor::after{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
+.safe{position:absolute;border:1px dashed rgba(255,255,255,.16);pointer-events:none}
+.safe.a{inset:5%}.safe.t{inset:10%}
+.kicker{font:700 13px var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
+.monitor h1{font:400 clamp(44px,9vw,104px)/.95 var(--disp);letter-spacing:.03em;margin:.12em 0 0}
+.lower{position:absolute;left:0;bottom:48px;display:flex;animation:slidein .9s .3s both cubic-bezier(.2,.8,.2,1)}
+@keyframes slidein{from{transform:translateX(-110%)}to{transform:none}}
+.lower span{background:var(--accent);color:#0b0d11;font:700 clamp(11px,2.2vw,15px) var(--mono);padding:7px 16px;letter-spacing:.04em}
+.lower span+span{background:#fff}
+.vf{position:absolute;inset:14px;pointer-events:none;z-index:2;font:600 12px var(--mono);color:#dfe3ee}
+.vf i.c{position:absolute;width:24px;height:24px;border:2px solid #dfe3ee}
+.vf i.tl{top:0;left:0;border-right:0;border-bottom:0}.vf i.tr{top:0;right:0;border-left:0;border-bottom:0}
+.vf i.bl{bottom:0;left:0;border-right:0;border-top:0}.vf i.br{bottom:0;right:0;border-left:0;border-top:0}
+.vf .rec{position:absolute;top:4px;left:34px;display:flex;gap:6px;align-items:center}
+.vf .rec b{width:10px;height:10px;border-radius:50%;background:var(--rec);animation:blink 2.8s ease-in-out infinite}
+.vf .stat{position:absolute;top:4px;right:34px}
+.vf .stat2{position:absolute;bottom:4px;right:34px}
+.vf .meter{position:absolute;bottom:4px;left:34px;display:flex;gap:2px;align-items:flex-end;height:22px}
+.vf .meter u{display:block;width:5px;height:100%;background:linear-gradient(0deg,#22c55e 0 60%,#f5b301 60% 85%,#e11d1d 85%);transform-origin:bottom;animation:vu 3.4s ease-in-out infinite alternate}
+.vf .meter u:nth-child(3n){animation-duration:2.8s}.vf .meter u:nth-child(3n+1){animation-duration:4.2s;animation-delay:-1.1s}.vf .meter u:nth-child(5n){animation-duration:3.8s;animation-delay:-.7s}
+@keyframes vu{from{transform:scaleY(.4)}to{transform:scaleY(.8)}}
+.lead{max-width:700px;margin:18px auto 0;color:var(--muted);font-size:17px;text-align:center}
+
+/* project bin */
+.bin{margin-top:24px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 0 16px;overflow:hidden}
+.binhead{font:700 11px var(--mono);letter-spacing:.14em;color:var(--muted);padding:9px 14px;border-bottom:1px solid var(--line);background:var(--panel2);display:flex;justify-content:space-between}
+.bingrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;padding:16px 16px 4px}
+.clipcard{all:unset;box-sizing:border-box;cursor:pointer;display:block;text-align:left}
+.clipcard .thumb{display:flex;align-items:center;justify-content:center;aspect-ratio:16/9;position:relative;border:2px solid #000;border-radius:4px;font-size:34px;overflow:hidden;
+  background:linear-gradient(135deg,var(--c1,#3b4256),var(--c2,#1c2030))}
+.clipcard .thumb::before,.clipcard .thumb::after{content:"";position:absolute;top:0;bottom:0;width:9px;background:#000;
+  background-image:radial-gradient(circle,#555 2px,transparent 2.5px);background-size:9px 12px}
+.clipcard .thumb::before{left:0}.clipcard .thumb::after{right:0}
+.clipcard .no{position:absolute;right:14px;bottom:4px;font:700 11px var(--mono);font-style:normal;background:rgba(0,0,0,.65);padding:0 5px;border-radius:2px;color:#fff}
+.clipcard .nm{display:block;margin-top:7px;font:600 13px Inter,sans-serif;color:var(--ink)}
+.clipcard:hover .thumb,.clipcard:focus-visible .thumb{border-color:var(--teal)}
+.clipcard.on .thumb{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent)}
+.clipcard.on .nm{color:var(--accent)}
+.t1{--c1:#5b3b8c;--c2:#25173f}.t2{--c1:#2b7a78;--c2:#0f2f34}.t3{--c1:#b4561a;--c2:#3a1b0a}.t4{--c1:#3b6bb4;--c2:#13213f}.t5{--c1:#8c2f46;--c2:#2c0f18}.t6{--c1:#4a8c3b;--c2:#16290f}
+.hint{font:12px var(--mono);color:var(--muted);text-align:center;margin:10px 0 0}
+
+/* panels */
+main{padding:22px 0 36px}
+.panel{display:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:0 28px 28px;animation:pop .3s}
+.panel.on{display:block}
+@keyframes pop{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.panel>h2{margin:0 -28px 20px;padding:11px 28px;background:var(--panel2);border-bottom:1px solid var(--line);border-radius:10px 10px 0 0;
+  font:400 30px var(--disp);letter-spacing:.06em;display:flex;gap:12px;align-items:center}
+.panel>h2 .badge{font:700 12px var(--mono);letter-spacing:.06em;color:#0b0d11;background:var(--accent);padding:3px 8px;border-radius:3px}
+.panel .sub{color:var(--muted);margin-top:-6px}
+.about{display:grid;gap:24px;grid-template-columns:1.15fr 1fr;align-items:start}
+@media(max-width:760px){.about{grid-template-columns:1fr}.panel{padding:0 18px 20px}.panel>h2{margin:0 -18px 16px;padding:10px 18px}}
+.padlet{background:#ead9ff;color:#25163b;border-radius:10px;padding:18px 20px}
+.padlet small{display:block;opacity:.7;margin-top:12px;text-transform:uppercase;letter-spacing:.06em}
+.chips{display:none}
+
+.todo{background:var(--todo);border:1px dashed var(--accent);border-radius:8px;padding:12px 14px;margin-top:16px;font-size:15px}
+.todo b{display:block;font:700 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px;color:var(--accent)}
+.todo .edit{min-height:3.2em;outline:none}
+.todo .edit:empty::before{content:attr(data-ph);color:var(--muted);font-style:italic}
+.todo:focus-within{border-style:solid}
+body.hide-todo .todo{display:none}
+
+/* activity clips */
+.clips{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:12px;margin:18px 0}
+.detail{display:none;margin-top:6px;border-top:1px dashed var(--line);padding-top:18px}
+.detail.on{display:block;animation:pop .3s}
+.detail ul{padding-left:20px}
+.tag{font:700 11px var(--mono);background:var(--accent);color:#0b0d11;border-radius:3px;padding:2px 7px;margin-right:6px}
+table{border-collapse:collapse;width:100%;font-size:14.5px;margin:10px 0}
+th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+th{background:var(--panel2);color:var(--accent);font:700 12px var(--mono);letter-spacing:.06em;text-transform:uppercase}
+.nle-wrap{margin-top:0}
+.prog{display:none}
+/* video-editor timeline */
+.nle-wrap{background:#16181d;color:#e8eaf0;border-radius:16px;padding:14px;margin-top:14px;font-family:Inter,sans-serif}
+.mon{display:flex;gap:14px;align-items:stretch;flex-wrap:wrap;margin-bottom:12px}
+.screen{flex:1 1 280px;min-height:96px;background:#000;border:2px solid #343846;border-radius:10px;padding:10px 14px;position:relative;overflow:hidden;
+  background-image:repeating-linear-gradient(0deg,rgba(255,255,255,.035) 0 1px,transparent 1px 3px)}
+.screen .rec{position:absolute;top:10px;right:12px;font:700 12px 'Courier New',monospace;color:#ff4d4d}
+.screen .rec i{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff4d4d;margin-right:5px;animation:blink 2.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.screen .tc{font:700 26px 'Courier New',monospace;color:#7CFF9B;letter-spacing:.04em}
+.screen .l1{font-weight:600;margin-top:2px}
+.screen .l2{font-size:13px;color:#aab0c0}
+.ctrl{display:flex;flex-direction:column;gap:6px;justify-content:center}
+.ctrl button{background:#2a2e3a;color:#fff;border:1px solid #444a5c;border-radius:8px;padding:8px 14px;font:600 14px Inter,sans-serif;cursor:pointer;min-width:120px}
+.ctrl button:hover{background:#3a4052}
+.nle-scroll{overflow-x:auto;border-radius:10px;border:1px solid #2c303c;background:#1d2027;padding-bottom:2px}
+.nle{position:relative;user-select:none;touch-action:pan-y}
+.ruler{position:relative;height:30px;border-bottom:1px solid #2c303c;cursor:ew-resize}
+.ruler .tk{position:absolute;bottom:0;border-left:1px solid #5a6074;height:9px}
+.ruler .tk.big{height:17px;border-color:#9aa1b6}
+.ruler .tk span{position:absolute;top:-14px;left:3px;font:10px 'Courier New',monospace;color:#9aa1b6;white-space:nowrap}
+.trk{position:relative;height:50px;border-bottom:1px solid #2c303c}
+.th{position:sticky;left:0;z-index:4;width:var(--g);height:100%;background:#262a35;border-right:1px solid #343846;display:flex;align-items:center;justify-content:center;font:700 13px 'Courier New',monospace;color:#c8cde0}
+.clip{position:absolute;top:5px;height:40px;border-radius:6px;padding:4px 8px;font-size:12px;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;cursor:pointer;
+  border:1px solid rgba(255,255,255,.25);color:#101114;border-left-width:3px}
+.clip.v{background:linear-gradient(180deg,#8892a8,#5d667c)}
+.clip.v.done{background:linear-gradient(180deg,#5ee09a,#2f9a63)}
+.clip.v.now{background:linear-gradient(180deg,#ffd45c,#e8a317)}
+.clip.a{background:linear-gradient(180deg,#7fc8ff,#3d8fd6);top:8px;height:34px}
+.clip.a.done{background:linear-gradient(180deg,#5ee09a,#2f9a63)}
+.clip.sel{outline:2px solid #fff;z-index:2}
+.clip small{display:block;font-weight:500;opacity:.75;font-size:10px}
+.ph{position:absolute;top:0;bottom:0;width:0;z-index:6;pointer-events:none}
+.ph::before{content:"";position:absolute;left:-1px;top:0;bottom:0;width:2px;background:#ff4d4d}
+.ph::after{content:"";position:absolute;left:-7px;top:0;border:7px solid transparent;border-top:11px solid #ff4d4d;border-bottom:0}
+.nle-hint{font-size:12px;color:#9aa1b6;margin:8px 2px 0}
+
+
+/* clapperboard */
+.clap{width:min(100%,420px);margin:2px 0 18px;font-family:'Courier New',monospace;filter:drop-shadow(0 4px 8px rgba(0,0,0,.25))}
+.clap-top{height:26px;border-radius:6px 6px 0 0;transform-origin:0 100%;
+  background:repeating-linear-gradient(115deg,#111 0 22px,#fff 22px 44px);border:2px solid #111;margin-bottom:-2px;position:relative;z-index:1}
+.detail.on .clap-top{animation:clap .55s .1s both}
+@keyframes clap{0%{transform:rotate(-20deg)}55%{transform:rotate(-20deg)}75%{transform:rotate(0)}100%{transform:rotate(0)}}
+.clap-body{background:#161616;color:#f2f2f2;border:2px solid #111;border-radius:0 0 8px 8px;overflow:hidden}
+.clap-stripe{height:22px;background:repeating-linear-gradient(115deg,#111 0 22px,#fff 22px 44px)}
+.clap-grid{display:grid;grid-template-columns:1fr 1fr;font-size:12px}
+.clap-grid div{padding:6px 10px;border-top:1px solid #444;border-right:1px solid #444;min-height:44px}
+.clap-grid div:nth-child(even){border-right:0}
+.clap-grid .full{grid-column:1/-1;border-right:0}
+.clap-grid small{display:block;color:#f5b301;font-size:9.5px;letter-spacing:.12em}
+.clap-grid b{font-size:15px}
+
+
+/* footer film strip */
+footer{margin-top:10px;padding:0 0 50px;text-align:center;color:var(--muted);font-size:13px;font-family:var(--mono)}
+.strip{height:22px;background:#000;background-image:radial-gradient(circle,#2f3340 4px,transparent 4.5px);background-size:26px 22px;margin-bottom:18px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar"><div class="wrap">
+  <span class="brand"><i></i>LAURA TRUNAS · PORTFOLI</span>
+  <span role="group" aria-label="Llengua / Language">
+    <button class="pill" data-lang="ca">CA</button>
+    <button class="pill" data-lang="es">ES</button>
+    <button class="pill" data-lang="en">EN</button>
+  </span>
+  <button class="pill" id="toggleTodo" aria-pressed="false" data-i18n="btn_todo"></button>
+</div></div>
+<div class="colorbars" aria-hidden="true"></div>
+
+<header class="hero"><div class="wrap">
+  <div class="monitor">
+    <div class="safe a"></div><div class="safe t"></div>
+    <div class="vf" aria-hidden="true"><i class="c tl"></i><i class="c tr"></i><i class="c bl"></i><i class="c br"></i><span class="rec"><b></b>REC <span id="vftc">00:00:00:00</span></span><span class="stat">25p · ISO 800</span><span class="stat2">f/2.8 · 1/50 · AUTO</span><span class="meter"><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u><u></u></span></div>
+    <div class="kicker" data-i18n="kicker"></div>
+    <h1>LAURA TRUNAS<br>VILLALOBOS</h1>
+    <div class="lower"><span data-i18n="chip1"></span><span data-i18n="chip2"></span></div>
+  </div>
+  <p class="lead" data-i18n="lead"></p>
+
+  <div class="bin" role="navigation" aria-label="Menu">
+    <div class="binhead"><span>PROJECT · BIN</span><span data-i18n="center"></span></div>
+    <div class="bingrid">
+      <button class="clipcard" data-go="presentacio"><span class="thumb t1">🎬<i class="no">01</i></span><span class="nm" data-i18n="h_pres"></span></button>
+      <button class="clipcard" data-go="recurs"><span class="thumb t2">📖<i class="no">02</i></span><span class="nm" data-i18n="h_rec"></span></button>
+      <button class="clipcard" data-go="activitats"><span class="thumb t3">🎞️<i class="no">03</i></span><span class="nm" data-i18n="h_act"></span></button>
+      <button class="clipcard" data-go="aportacions"><span class="thumb t4">🎙️<i class="no">04</i></span><span class="nm" data-i18n="h_apo"></span></button>
+      <button class="clipcard" data-go="cronologia"><span class="thumb t5">⏱️<i class="no">05</i></span><span class="nm" data-i18n="h_tl"></span></button>
+      <button class="clipcard" data-go="ia"><span class="thumb t6">🤖<i class="no">06</i></span><span class="nm" data-i18n="h_ia"></span></button>
+    </div>
+    <p class="hint" data-i18n="hint"></p>
+  </div>
+</div></header>
+
+<main id="main"><div class="wrap">
+
+<!-- 1 -->
+<section class="panel" id="presentacio">
+  <h2><span class="badge">1</span><span data-i18n="h_pres_t"></span></h2>
+  <div class="about">
+    <div>
+      <p data-i18n="p1"></p><p data-i18n="p2"></p><p data-i18n="p3"></p>
+      <div class="todo"><b data-i18n="todo_l"></b><div class="edit" contenteditable="true" spellcheck="true" data-ph-key="pres_ph"></div></div>
+    </div>
+    <div class="padlet">
+      <b>Laura Trunas</b><br><span data-i18n="padlet_note"></span>
+      <small data-i18n="padlet_spec"></small>
+    </div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="panel" id="recurs">
+  <h2><span class="badge">2</span><span data-i18n="h_rec_t"></span></h2>
+  <p class="sub" data-i18n="rec_intro"></p>
+  <h3 data-i18n="rec_title"></h3>
+  <p class="muted" data-i18n="rec_meta"></p>
+  <div class="todo"><b data-i18n="todo_l"></b><div class="edit" contenteditable="true" data-ph-key="rec_ph"></div></div>
+</section>
+
+<!-- 3 -->
+<section class="panel" id="activitats">
+  <h2><span class="badge">3</span><span data-i18n="h_act_t"></span></h2>
+  <p class="sub" data-i18n="act_intro"></p>
+  <div class="clips" id="mini">
+    <button class="clipcard" data-act="a1"><span class="thumb t1">🤝<i class="no">A1</i></span><span class="nm" data-i18n="a1_h"></span></button>
+    <button class="clipcard" data-act="a2"><span class="thumb t2">🧭<i class="no">A2</i></span><span class="nm" data-i18n="a2_h"></span></button>
+    <button class="clipcard" data-act="a3"><span class="thumb t3">⚠️<i class="no">A3</i></span><span class="nm" data-i18n="a3_h"></span></button>
+    <button class="clipcard" data-act="a4"><span class="thumb t4">📊<i class="no">A4</i></span><span class="nm" data-i18n="a4_h"></span></button>
+    <button class="clipcard" data-act="a5"><span class="thumb t5">➕<i class="no">A5</i></span><span class="nm" data-i18n="a5_h"></span></button>
+  </div>
+  <div class="detail" id="a1"></div>
+  <div class="detail" id="a2"></div>
+  <div class="detail" id="a3"></div>
+  <div class="detail" id="a4"></div>
+  <div class="detail" id="a5"></div>
+</section>
+
+<!-- 4 -->
+<section class="panel" id="aportacions">
+  <h2><span class="badge">4</span><span data-i18n="h_apo_t"></span></h2>
+  <div class="todo"><b data-i18n="todo_l"></b><div class="edit" contenteditable="true" data-ph-key="apo_ph"></div></div>
+</section>
+
+<!-- timeline -->
+<section class="panel" id="cronologia">
+  <h2><span data-i18n="h_tl_t"></span></h2>
+  <p class="muted"><span data-i18n="tl_prog"></span> <b id="pct">0</b>%</p>
+  <div class="nle-wrap">
+    <div class="mon">
+      <div class="screen"><span class="rec"><i></i>REC</span>
+        <div class="tc" id="tc">00:00:00:00</div>
+        <div class="l1" id="l1"></div><div class="l2" id="l2"></div></div>
+      <div class="ctrl"><button id="play"></button><button id="goto"></button></div>
+    </div>
+    <div class="nle-scroll" id="nlescroll"><div class="nle" id="nle"></div></div>
+    <p class="nle-hint" data-i18n="tl_hint"></p>
+  </div>
+</section>
+
+<!-- AI -->
+<section class="panel" id="ia">
+  <h2><span data-i18n="h_ia_t"></span></h2>
+  <p data-i18n="ia_text"></p>
+</section>
+
+</div></main>
+
+<footer><div class="strip" aria-hidden="true"></div><div class="wrap"><p data-i18n="footer"></p></div></footer>
+
+<script>
+(function(){
+var T={ca:{cl_prod:"PRODUCCIÓ",cl_scene:"ESCENA",cl_take:"PRESA",cl_dir:"DIRECTORA",cl_date:"DATA",tl_hint:"Clica la regla o arrossega el cap de reproducció. Clica un clip per veure'n el detall. 1 dia = 1 segon.",play_a:"▶ Reproduir",play_b:"⏸ Pausa",goto_t:"⏮ Avui",mon_before:"Abans de començar el curs",mon_after:"Curs finalitzat",mon_next:"Pròxim lliurament",mon_none:"Cap lliurament pendent",mon_gap:"Entre sessions",dv:["Cas + política","CoRubrics","Portfoli parcial","Portfoli final"],dvf:["Lliurament: cas pràctic i política (18/10)","Lliurament: CoRubrics (06/11)","Lliurament parcial del portfoli (12/12)","Lliurament final del portfoli (16/02)"],
+btn_todo:"Amaga els quadres per completar",btn_todo2:"Mostra els quadres per completar",
+kicker:"Portfoli personal · Curs 2026-27",
+lead:"Professora de Mitjans Audiovisuals i estudiant del Màster en Formació del Professorat. Aquest portfoli recull el meu procés d'aprenentatge a Antecedents i orientació disciplinar a la formació professional.",
+chip1:"Màster Formació del Professorat · UPC",chip2:"Docent FP · EMAV",center:"Antecedents · FP",hint:"Clica un clip del projecte per obrir-lo",
+h_pres:"Presentació",h_rec:"Recurs docent",h_act:"Activitats",h_apo:"Aportacions",h_tl:"Cronologia",h_ia:"Ús de la IA",
+h_pres_t:"Presentació personal i professional",h_rec_t:"Article o recurs docent d'interès",h_act_t:"Activitats de l'assignatura",h_apo_t:"Aportacions personals i activitats voluntàries",h_tl_t:"Cronologia de l'assignatura",h_ia_t:"Ús de la intel·ligència artificial",
+p1:"Actualment sóc professora de Mitjans Audiovisuals a l'EMAV des del 2025. Anteriorment vaig treballar com a tècnica audiovisual, com a autònoma i en empresa privada, ocupant principalment rols relacionats amb la realització audiovisual, l'operació de càmera i el muntatge de vídeo.",
+p2:"Sóc graduada en Mitjans Audiovisuals per la UPF i tinc un postgrau en Economia Social i Solidària per la UAB. Tinc el C1 d'anglès (EOI) i el C1 de català.",
+p3:"<b>Especialitat:</b> 519 / 629 · Imatge i so / Disseny.",
+todo_l:"Per completar",pres_ph:"Reflexió inicial: Què sé? Què m'aporta el màster i l'assignatura d'Antecedents? Quin tipus de docent vull arribar a ser?",
+padlet_note:"Presentació que vaig publicar al Padlet a l'inici de curs.",padlet_spec:"Especialitat · 519 o 629 Imatge i so / Disseny",
+rec_intro:"Un article o material educatiu significatiu que aporti valor al meu portfoli.",rec_title:"Títol del recurs",rec_meta:"Autoria · Any · enllaç",
+rec_ph:"Per què l'he triat? Què m'ha aportat? Com el puc aplicar a les meves classes d'audiovisuals?",
+act_intro:"Treballs fets amb el Grup 2 (Guillem, Daniel, Xavi i jo). Clica un clip per veure'n el detall.",
+a1_h:"Política del grup",a2_h:"Social Style",a3_h:"Mala praxi",a4_h:"CoRubrics",a5_h:"Més",
+a1:`<p><span class="tag">S1</span><b>Política interna de funcionament del grup</b></p><ul>
+<li><b>Representant:</b> Guillem Álava, que fa els lliuraments finals després d'una revisió global.</li>
+<li><b>Comunicació:</b> WhatsApp per a reunions i dubtes, Google Meet per a reunions i desenvolupament, Google Drive per als comentaris de correcció.</li>
+<li><b>Documents:</b> Google Docs i Google Drive, amb historial de versions i comentaris per al control de canvis.</li>
+<li><b>Responsabilitats:</b> qui no participa en un treball grupal no hi consta, i la feina es marca com a «NO FET».</li>
+<li><b>Avaluació entre iguals:</b> compromís de ser justos en les avaluacions grupals i les autoavaluacions.</li></ul>`,
+a2:`<p><span class="tag">S1</span><b>Test Social Style</b></p><table><tr><th>Persona</th><th>Estil</th></tr><tr><td>Daniel</td><td>Driver</td></tr><tr><td>Xavi</td><td>Expressive</td></tr><tr><td>Guillem</td><td>Expressive</td></tr><tr><td>Laura</td><td>Driver</td></tr></table><p>El grup combina dos perfils orientats a l'acció i al resultat (Driver) i dos d'orientats a les persones i les idees (Expressive).</p>`,
+a3:`<p><span class="tag">S1</span><b>Cas pràctic: mala praxi en el treball en equip docent</b></p>
+<p>Un grup de quatre docents de l'Institut Escola del Treball ha de dissenyar activitats interdisciplinàries i arriba a un bloqueig: una baixa no prevista, falta de comunicació, reunions descontrolades i negativa a compartir materials.</p><ul>
+<li>Causes agrupades en gestió del treball, comunicació i coordinació.</li>
+<li>Pla d'acció: reunió de represa moderada (60-90 min), reunions curtes amb agenda, un únic canal, abast reduït i repartiment equitatiu.</li>
+<li>Materials: repositori comú amb autoria reconeguda, ús intern o Creative Commons si es difon.</li>
+<li>Indicadors: compliment de fites, assistència, matriu RA-CA completada i clima de l'equip (1-5).</li>
+<li>Reflexió docent: com acompanyar un grup d'alumnes en una situació similar (DAFO, mediació, diagrama de Gantt).</li></ul>
+<table><tr><th>Mala praxi</th><th>Bona pràctica</th></tr><tr><td>No hi ha planificació ni seguiment</td><td>Calendari realista, tasques repartides i seguiment periòdic</td></tr><tr><td>No es reorganitza davant una baixa</td><td>Pla de contingències i redistribució consensuada</td></tr><tr><td>Es treballa de manera independent</td><td>Comunicació constant i decisions conjuntes</td></tr><tr><td>No es comprova la coherència amb RA i CA</td><td>Revisió conjunta de les activitats</td></tr></table>`,
+a4:`<p><span class="tag">S3</span><b>CoRubrics: coavaluació i autoavaluació</b></p>
+<p>Vam crear una rúbrica a Google Sheets amb el complement CoRubrics per avaluar la contribució de cada membre. Hi va haver coavaluació, autoavaluació i avaluació del professorat (pesos 40 / 10 / 50).</p><ul>
+<li>Implicació en els processos cooperatius (20 %)</li><li>Implicació en els processos individuals (20 %)</li><li>Traçabilitat de les fonts i bibliografia (20 %)</li><li>Puntualitat en les entregues internes (10 %)</li><li>Resolució de problemes amb pensament lateral (20 %)</li><li>Puntualitat i assistència a les quedades grupals (10 %)</li></ul>
+<p><b>El meu resultat:</b> nota global 9,68 sobre 10. A l'autoavaluació em vaig posar un 3 en pensament lateral i en assistència.</p>`,
+a5:`<p><span class="tag">S2 · S4</span><b>Aprenentatge cooperatiu i TIC/TAC</b> (pendent d'afegir)</p><p class="muted">Puzle d'Aronson, qüestionari, presentació d'una eina TIC/TAC i AEA amb RA i taxonomia de Bloom.</p>`,
+ap_ph:"",apo_ph:"Altres experiències, lectures o reflexions: activitats opcionals (Profesora Lea, pel·lícula «La profesora de historia»), visites, idees per a les teves classes.",
+learn_l:"Què n'he après",learn_ph:"Escriu aquí la teva reflexió sobre aquesta activitat.",
+tl_prog:"Progrés del curs:",
+s:["Presentació","Aprenentatge cooperatiu","Avaluació, feedback i portfoli","TIC/TAC i gamificació","ABPr","Visita a l'Institut Escola del Treball de Barcelona","ABP, ABR, APS","Flipped Classroom + Moodle","Ponències RV, RA, IAs","AICLE + vídeo motivador"],
+sn:{2:"Lliurament parcial del portfoli: 12/12",9:"Lliurament final del portfoli (15 % de la nota)"},
+ia_text:"Segons la política de l'assignatura, aquí indico l'ús d'IA generativa. Aquesta pàgina s'ha elaborat amb Claude (estructura, disseny i traduccions); els continguts, les activitats i les reflexions són meus. En el cas pràctic de mala praxi es va fer servir ChatGPT per a la pluja d'idees i Claude com a suport a la redacció.",
+footer:"Portfoli de Laura Trunas Villalobos · Màster en Formació del Professorat (UPC) · Antecedents i orientació disciplinar a la FP."},
+
+es:{cl_prod:"PRODUCCIÓN",cl_scene:"ESCENA",cl_take:"TOMA",cl_dir:"DIRECTORA",cl_date:"FECHA",tl_hint:"Haz clic en la regla o arrastra el cabezal. Clic en un clip para ver el detalle. 1 día = 1 segundo.",play_a:"▶ Reproducir",play_b:"⏸ Pausa",goto_t:"⏮ Hoy",mon_before:"Antes de empezar el curso",mon_after:"Curso finalizado",mon_next:"Próxima entrega",mon_none:"Ninguna entrega pendiente",mon_gap:"Entre sesiones",dv:["Caso + política","CoRubrics","Portafolio parcial","Portafolio final"],dvf:["Entrega: caso práctico y política (18/10)","Entrega: CoRubrics (06/11)","Entrega parcial del portafolio (12/12)","Entrega final del portafolio (16/02)"],
+btn_todo:"Ocultar cuadros por completar",btn_todo2:"Mostrar cuadros por completar",
+kicker:"Portafolio personal · Curso 2026-27",
+lead:"Profesora de Medios Audiovisuales y estudiante del Máster en Formación del Profesorado. Este portafolio recoge mi proceso de aprendizaje en Antecedentes y orientación disciplinar a la formación profesional.",
+chip1:"Máster Formación del Profesorado · UPC",chip2:"Docente FP · EMAV",center:"Antecedentes · FP",hint:"Haz clic en un clip del proyecto para abrirlo",
+h_pres:"Presentación",h_rec:"Recurso docente",h_act:"Actividades",h_apo:"Aportaciones",h_tl:"Cronología",h_ia:"Uso de la IA",
+h_pres_t:"Presentación personal y profesional",h_rec_t:"Artículo o recurso docente de interés",h_act_t:"Actividades de la asignatura",h_apo_t:"Aportaciones personales y actividades voluntarias",h_tl_t:"Cronología de la asignatura",h_ia_t:"Uso de la inteligencia artificial",
+p1:"Actualmente soy profesora de Medios Audiovisuales en la EMAV desde 2025. Anteriormente trabajé como técnica audiovisual, como autónoma y en empresa privada, ocupando principalmente roles relacionados con la realización audiovisual, la operación de cámara y el montaje de vídeo.",
+p2:"Soy graduada en Medios Audiovisuales por la UPF y tengo un posgrado en Economía Social y Solidaria por la UAB. Tengo el C1 de inglés (EOI) y el C1 de catalán.",
+p3:"<b>Especialidad:</b> 519 / 629 · Imagen y sonido / Diseño.",
+todo_l:"Por completar",pres_ph:"Reflexión inicial: ¿Qué sé? ¿Qué me aporta el máster y la asignatura de Antecedentes? ¿Qué tipo de docente quiero llegar a ser?",
+padlet_note:"Presentación que publiqué en el Padlet al inicio de curso.",padlet_spec:"Especialidad · 519 o 629 Imagen y sonido / Diseño",
+rec_intro:"Un artículo o material educativo significativo que aporte valor a mi portafolio.",rec_title:"Título del recurso",rec_meta:"Autoría · Año · enlace",
+rec_ph:"¿Por qué lo he elegido? ¿Qué me ha aportado? ¿Cómo puedo aplicarlo en mis clases de audiovisuales?",
+act_intro:"Trabajos hechos con el Grupo 2 (Guillem, Daniel, Xavi y yo). Haz clic en un clip para ver el detalle.",
+a1_h:"Política del grupo",a2_h:"Social Style",a3_h:"Mala praxis",a4_h:"CoRubrics",a5_h:"Más",
+a1:`<p><span class="tag">S1</span><b>Política interna de funcionamiento del grupo</b></p><ul>
+<li><b>Representante:</b> Guillem Álava, que hace las entregas finales tras una revisión global.</li>
+<li><b>Comunicación:</b> WhatsApp para reuniones y dudas, Google Meet para reuniones y desarrollo, Google Drive para los comentarios de corrección.</li>
+<li><b>Documentos:</b> Google Docs y Google Drive, con historial de versiones y comentarios para el control de cambios.</li>
+<li><b>Responsabilidades:</b> quien no participa en un trabajo grupal no consta en él y se marca como «NO HECHO».</li>
+<li><b>Evaluación entre iguales:</b> compromiso de ser justos en las evaluaciones grupales y autoevaluaciones.</li></ul>`,
+a2:`<p><span class="tag">S1</span><b>Test Social Style</b></p><table><tr><th>Persona</th><th>Estilo</th></tr><tr><td>Daniel</td><td>Driver</td></tr><tr><td>Xavi</td><td>Expressive</td></tr><tr><td>Guillem</td><td>Expressive</td></tr><tr><td>Laura</td><td>Driver</td></tr></table><p>El grupo combina dos perfiles orientados a la acción y al resultado (Driver) y dos orientados a las personas y las ideas (Expressive).</p>`,
+a3:`<p><span class="tag">S1</span><b>Caso práctico: mala praxis en el trabajo en equipo docente</b></p>
+<p>Un grupo de cuatro docentes del Institut Escola del Treball debe diseñar actividades interdisciplinarias y llega a un bloqueo: una baja imprevista, falta de comunicación, reuniones descontroladas y negativa a compartir materiales.</p><ul>
+<li>Causas agrupadas en gestión del trabajo, comunicación y coordinación.</li>
+<li>Plan de acción: reunión de reanudación moderada (60-90 min), reuniones cortas con agenda, un único canal, alcance reducido y reparto equitativo.</li>
+<li>Materiales: repositorio común con autoría reconocida, uso interno o Creative Commons si se difunde.</li>
+<li>Indicadores: cumplimiento de hitos, asistencia, matriz RA-CA completada y clima del equipo (1-5).</li>
+<li>Reflexión docente: cómo acompañar a un grupo de alumnos en una situación similar (DAFO, mediación, diagrama de Gantt).</li></ul>
+<table><tr><th>Mala praxis</th><th>Buena práctica</th></tr><tr><td>No hay planificación ni seguimiento</td><td>Calendario realista, tareas repartidas y seguimiento periódico</td></tr><tr><td>No se reorganiza ante una baja</td><td>Plan de contingencias y redistribución consensuada</td></tr><tr><td>Se trabaja de forma independiente</td><td>Comunicación constante y decisiones conjuntas</td></tr><tr><td>No se comprueba la coherencia con RA y CE</td><td>Revisión conjunta de las actividades</td></tr></table>`,
+a4:`<p><span class="tag">S3</span><b>CoRubrics: coevaluación y autoevaluación</b></p>
+<p>Creamos una rúbrica en Google Sheets con el complemento CoRubrics para evaluar la contribución de cada miembro. Hubo coevaluación, autoevaluación y evaluación del profesorado (pesos 40 / 10 / 50).</p><ul>
+<li>Implicación en los procesos cooperativos (20 %)</li><li>Implicación en los procesos individuales (20 %)</li><li>Trazabilidad de las fuentes y bibliografía (20 %)</li><li>Puntualidad en las entregas internas (10 %)</li><li>Resolución de problemas con pensamiento lateral (20 %)</li><li>Puntualidad y asistencia a las quedadas grupales (10 %)</li></ul>
+<p><b>Mi resultado:</b> nota global 9,68 sobre 10. En la autoevaluación me puse un 3 en pensamiento lateral y en asistencia.</p>`,
+a5:`<p><span class="tag">S2 · S4</span><b>Aprendizaje cooperativo y TIC/TAC</b> (pendiente de añadir)</p><p class="muted">Puzle de Aronson, cuestionario, presentación de una herramienta TIC/TAC y AEA con RA y taxonomía de Bloom.</p>`,
+apo_ph:"Otras experiencias, lecturas o reflexiones: actividades opcionales (Profesora Lea, película «La profesora de historia»), visitas, ideas para tus clases.",
+learn_l:"Qué he aprendido",learn_ph:"Escribe aquí tu reflexión sobre esta actividad.",
+tl_prog:"Progreso del curso:",
+s:["Presentación","Aprendizaje cooperativo","Evaluación, feedback y portafolio","TIC/TAC y gamificación","ABPr","Visita al Institut Escola del Treball de Barcelona","ABP, ABR, APS","Flipped Classroom + Moodle","Ponencias RV, RA, IAs","AICLE + vídeo motivador"],
+sn:{2:"Entrega parcial del portafolio: 12/12",9:"Entrega final del portafolio (15 % de la nota)"},
+ia_text:"Según la política de la asignatura, aquí indico el uso de IA generativa. Esta página se ha elaborado con Claude (estructura, diseño y traducciones); los contenidos, las actividades y las reflexiones son míos. En el caso práctico de mala praxis se usó ChatGPT para la lluvia de ideas y Claude como apoyo a la redacción.",
+footer:"Portafolio de Laura Trunas Villalobos · Máster en Formación del Profesorado (UPC) · Antecedentes y orientación disciplinar a la FP."},
+
+en:{cl_prod:"PRODUCTION",cl_scene:"SCENE",cl_take:"TAKE",cl_dir:"DIRECTOR",cl_date:"DATE",tl_hint:"Click the ruler or drag the playhead. Click a clip for details. 1 day = 1 second.",play_a:"▶ Play",play_b:"⏸ Pause",goto_t:"⏮ Today",mon_before:"Before the course starts",mon_after:"Course finished",mon_next:"Next delivery",mon_none:"No pending delivery",mon_gap:"Between sessions",dv:["Case + policy","CoRubrics","Partial portfolio","Final portfolio"],dvf:["Delivery: case study and policy (18/10)","Delivery: CoRubrics (06/11)","Partial portfolio delivery (12/12)","Final portfolio delivery (16/02)"],
+btn_todo:"Hide to-complete boxes",btn_todo2:"Show to-complete boxes",
+kicker:"Personal portfolio · 2026-27",
+lead:"Audiovisual Media teacher and student of the Master's in Teacher Training. This portfolio gathers my learning process in Background and Disciplinary Orientation in Vocational Education.",
+chip1:"Teacher Training Master · UPC",chip2:"VET teacher · EMAV",center:"Background · VET",hint:"Click a project clip to open it",
+h_pres:"About me",h_rec:"Teaching resource",h_act:"Activities",h_apo:"Contributions",h_tl:"Timeline",h_ia:"Use of AI",
+h_pres_t:"Personal and professional introduction",h_rec_t:"Article or teaching resource of interest",h_act_t:"Course activities",h_apo_t:"Personal contributions and voluntary activities",h_tl_t:"Course timeline",h_ia_t:"Use of artificial intelligence",
+p1:"I have been an Audiovisual Media teacher at EMAV since 2025. Before that I worked as an audiovisual technician, freelance and in private companies, mainly in roles related to audiovisual production, camera operation and video editing.",
+p2:"I hold a degree in Audiovisual Media from UPF and a postgraduate degree in Social and Solidarity Economy from UAB. I have a C1 in English (EOI) and a C1 in Catalan.",
+p3:"<b>Specialty:</b> 519 / 629 · Image and sound / Design.",
+todo_l:"To complete",pres_ph:"Initial reflection: What do I know? What is the master's, and this course, giving me? What kind of teacher do I want to become?",
+padlet_note:"Introduction I posted on the Padlet at the start of the course.",padlet_spec:"Specialty · 519 or 629 Image and sound / Design",
+rec_intro:"A significant article or educational material that adds value to my portfolio.",rec_title:"Resource title",rec_meta:"Author · Year · link",
+rec_ph:"Why did I choose it? What did it give me? How can I apply it in my audiovisual classes?",
+act_intro:"Work done with Group 2 (Guillem, Daniel, Xavi and me). Click a clip to see the details.",
+a1_h:"Group policy",a2_h:"Social Style",a3_h:"Poor practice",a4_h:"CoRubrics",a5_h:"More",
+a1:`<p><span class="tag">S1</span><b>Group internal working policy</b></p><ul>
+<li><b>Representative:</b> Guillem Álava, who submits final deliverables after a global review.</li>
+<li><b>Communication:</b> WhatsApp for meetings and questions, Google Meet for meetings and development, Google Drive for correction comments.</li>
+<li><b>Documents:</b> Google Docs and Google Drive, with version history and comments for change tracking.</li>
+<li><b>Responsibilities:</b> anyone who does not take part in a group task is left off it and marked “NOT DONE”.</li>
+<li><b>Peer evaluation:</b> commitment to be fair in group evaluations and self-evaluations.</li></ul>`,
+a2:`<p><span class="tag">S1</span><b>Social Style test</b></p><table><tr><th>Person</th><th>Style</th></tr><tr><td>Daniel</td><td>Driver</td></tr><tr><td>Xavi</td><td>Expressive</td></tr><tr><td>Guillem</td><td>Expressive</td></tr><tr><td>Laura</td><td>Driver</td></tr></table><p>The group combines two action- and result-oriented profiles (Driver) with two people- and idea-oriented ones (Expressive).</p>`,
+a3:`<p><span class="tag">S1</span><b>Case study: poor practice in teacher teamwork</b></p>
+<p>A group of four teachers at Institut Escola del Treball must design interdisciplinary activities and ends up stuck: an unplanned sick leave, poor communication, chaotic meetings and a refusal to share materials.</p><ul>
+<li>Causes grouped into work management, communication and coordination.</li>
+<li>Action plan: a moderated restart meeting (60-90 min), short meetings with an agenda, a single channel, reduced scope and fair distribution.</li>
+<li>Materials: shared repository with recognised authorship, internal use or Creative Commons if shared externally.</li>
+<li>Indicators: milestones met, attendance, completed LO-AC matrix and team climate (1-5).</li>
+<li>Teaching reflection: how to support a group of students in a similar situation (SWOT, mediation, Gantt chart).</li></ul>
+<table><tr><th>Poor practice</th><th>Good practice</th></tr><tr><td>No planning or follow-up</td><td>Realistic calendar, shared tasks and regular follow-up</td></tr><tr><td>No reorganisation after a sick leave</td><td>Contingency plan and agreed redistribution</td></tr><tr><td>Working independently</td><td>Constant communication and joint decisions</td></tr><tr><td>No check of coherence with LO and AC</td><td>Joint review of the activities</td></tr></table>`,
+a4:`<p><span class="tag">S3</span><b>CoRubrics: peer and self-evaluation</b></p>
+<p>We built a rubric in Google Sheets with the CoRubrics add-on to assess each member's contribution. There was peer evaluation, self-evaluation and teacher evaluation (weights 40 / 10 / 50).</p><ul>
+<li>Involvement in cooperative processes (20 %)</li><li>Involvement in individual processes (20 %)</li><li>Traceability of sources and bibliography (20 %)</li><li>Punctuality in internal deliveries (10 %)</li><li>Problem solving through lateral thinking (20 %)</li><li>Punctuality and attendance at group meetings (10 %)</li></ul>
+<p><b>My result:</b> overall grade 9.68 out of 10. In my self-evaluation I gave myself a 3 in lateral thinking and in attendance.</p>`,
+a5:`<p><span class="tag">S2 · S4</span><b>Cooperative learning and ICT/LT</b> (to be added)</p><p class="muted">Aronson jigsaw, questionnaire, presentation of an ICT/LT tool and a teaching-learning activity with learning outcomes and Bloom's taxonomy.</p>`,
+apo_ph:"Other experiences, readings or reflections: optional activities (Professor Lea, the film “La profesora de historia”), visits, ideas for your classes.",
+learn_l:"What I learned",learn_ph:"Write your reflection on this activity here.",
+tl_prog:"Course progress:",
+s:["Introduction","Cooperative learning","Assessment, feedback and portfolio","ICT/LT and gamification","Project-based learning (PBL)","Visit to Institut Escola del Treball de Barcelona","PBL, RBL, SLL","Flipped Classroom + Moodle","Talks on VR, AR, AIs","CLIL + motivational video"],
+sn:{2:"Partial portfolio delivery: 12/12",9:"Final portfolio delivery (15 % of the grade)"},
+ia_text:"As required by the course policy, here is my use of generative AI. This page was built with Claude (structure, design and translations); the content, activities and reflections are mine. For the poor-practice case study, ChatGPT was used for brainstorming and Claude as writing support.",
+footer:"Portfolio of Laura Trunas Villalobos · Master's in Teacher Training (UPC) · Background and disciplinary orientation in VET."}
+};
+var DATES=["2026-10-06","2026-10-20","2026-10-27","2026-11-10","2026-11-21","2026-12-01","2026-12-12","2027-01-19","2027-02-09","2027-02-16"];
+var lang="ca";
+var $=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}}
+
+function learnBox(id){return '<div class="todo"><b>'+T[lang].learn_l+'</b><div class="edit" contenteditable="true" data-store="learn-'+id+'" data-ph="'+T[lang].learn_ph+'"></div></div>'}
+
+function render(){
+  var t=T[lang];
+  document.documentElement.lang=lang;
+  $$('[data-i18n]').forEach(function(e){e.innerHTML=t[e.getAttribute('data-i18n')]});
+  $$('[data-ph-key]').forEach(function(e){e.setAttribute('data-ph',t[e.getAttribute('data-ph-key')])});
+  var CL={a1:['1','18/10/2026'],a2:['2','18/10/2026'],a3:['3','18/10/2026'],a4:['4','06/11/2026'],a5:['5','10/11/2026']};
+  function clapper(id){var c=CL[id];return '<div class="clap"><div class="clap-top"></div><div class="clap-body"><div class="clap-stripe"></div><div class="clap-grid"><div class="full"><small>'+t.cl_prod+'</small><b>Portfoli · Antecedents</b></div><div><small>'+t.cl_scene+'</small><b>'+c[0]+' · '+t[id+'_h']+'</b></div><div><small>'+t.cl_take+'</small><b>1</b></div><div><small>'+t.cl_dir+'</small><b>L. Trunas</b></div><div><small>'+t.cl_date+'</small><b>'+c[1]+'</b></div></div></div></div>'}
+  ['a1','a2','a3','a4'].forEach(function(id){$('#'+id).innerHTML=clapper(id)+t[id]+learnBox(id)});
+  $('#a5').innerHTML=clapper('a5')+t.a5;
+  // restore edits
+  $$('.edit').forEach(function(el,i){
+    var k=el.getAttribute('data-store')||('edit-'+(el.closest('section')||{}).id);
+    el.setAttribute('data-k',k);
+    var s=store('pf-'+k); if(s!==null) el.innerHTML=s;
+    el.oninput=function(){store('pf-'+k,el.innerHTML)};
+  });
+  buildNLE();
+  $$('[data-lang]').forEach(function(b){b.setAttribute('aria-pressed',b.getAttribute('data-lang')===lang)});
+  syncTodoBtn();
+  var cur=$('.detail.on'); if(cur) cur.classList.add('on');
+}
+function syncTodoBtn(){var h=document.body.classList.contains('hide-todo');$('#toggleTodo').textContent=T[lang][h?'btn_todo2':'btn_todo'];$('#toggleTodo').setAttribute('aria-pressed',h)}
+
+var G=56,PX=9,DAY=86400000,START=Date.UTC(2026,9,6),TOTAL=140,phDay=null,selClip=null,playing=false,raf=null;
+function dayOf(str){var p=str.split('-');return Math.round((Date.UTC(+p[0],+p[1]-1,+p[2])-START)/DAY)}
+function fmt(d){var x=new Date(START+d*DAY);return ('0'+x.getUTCDate()).slice(-2)+'/'+('0'+(x.getUTCMonth()+1)).slice(-2)+'/'+x.getUTCFullYear()}
+function tcOf(d){d=Math.max(0,d);var mm=Math.floor(d/60),ss=Math.floor(d%60),ff=Math.floor((d%1)*25);var z=function(n){return('0'+n).slice(-2)};return '00:'+z(mm)+':'+z(ss)+':'+z(ff)}
+function todayDay(){var n=new Date();return (Date.UTC(n.getFullYear(),n.getMonth(),n.getDate())-START)/DAY}
+function buildNLE(){
+  var t=T[lang],el=$('#nle'),W=G+TOTAL*PX,h='';
+  el.style.width=W+'px';el.style.setProperty('--g',G+'px');
+  var td=todayDay(),pastN=0;
+  h+='<div class="ruler" id="ruler">';
+  for(var d=0;d<=TOTAL;d+=7){var big=(d%14===0);h+='<div class="tk'+(big?' big':'')+'" style="left:'+(G+d*PX)+'px">'+(big?'<span>'+fmt(d).slice(0,5)+'</span>':'')+'</div>'}
+  h+='</div><div class="trk" style="--g:'+G+'px"><div class="th">V1</div>';
+  var cur=false;
+  DATES.forEach(function(ds,i){
+    var s0=dayOf(ds),e0=(i<DATES.length-1)?dayOf(DATES[i+1]):s0+7,cls='v';
+    if(e0<=td){cls+=' done';pastN++}else if(s0<=td&&td<e0){cls+=' now'}
+    else if(!cur&&s0>td){cur=true}
+    h+='<div class="clip '+cls+'" data-s="'+s0+'" data-e="'+e0+'" data-i="'+i+'" style="left:'+(G+s0*PX)+'px;width:'+((e0-s0)*PX-2)+'px" title="'+(i+1)+' · '+t.s[i]+'">'+(i+1)+' · '+t.s[i]+'<small>'+fmt(s0).slice(0,5)+'</small></div>';
+  });
+  h+='</div><div class="trk" style="--g:'+G+'px"><div class="th">A1</div>';
+  var DD=['2026-10-18','2026-11-06','2026-12-12','2027-02-16'];
+  DD.forEach(function(ds,i){
+    var s0=dayOf(ds),cls='a'+(s0<td?' done':'');
+    h+='<div class="clip '+cls+'" data-dv="'+i+'" data-s="'+s0+'" style="left:'+(G+s0*PX)+'px;width:'+(8*PX)+'px" title="'+t.dvf[i]+'">'+t.dv[i]+'<small>'+fmt(s0).slice(0,5)+'</small></div>';
+  });
+  h+='</div><div class="ph" id="ph"></div>';
+  el.innerHTML=h;
+  $('#pct').textContent=Math.max(0,Math.min(100,Math.round(td/(TOTAL-7)*100)));
+  $('#play').textContent=t[playing?'play_b':'play_a'];
+  $('#goto').textContent=t.goto_t;
+  if(phDay===null)phDay=Math.max(0,Math.min(TOTAL-1,td));
+  setPH(phDay,false);
+  $('#ruler').onpointerdown=function(e){drag(e)};
+  $$('.clip',el).forEach(function(c){c.onclick=function(){stop();setPH(+c.getAttribute('data-s'),true);selClip=c;$$('.clip',el).forEach(function(x){x.classList.toggle('sel',x===c)})}});
+  $('#play').onclick=function(){playing?stop():play()};
+  $('#goto').onclick=function(){stop();setPH(Math.max(0,Math.min(TOTAL-1,todayDay())),true)};
+}
+function drag(e){
+  stop();var el=$('#nle'),r=el.getBoundingClientRect();
+  function mv(ev){setPH(Math.max(0,Math.min(TOTAL,(ev.clientX-r.left-G)/PX)),false)}
+  mv(e);
+  var up=function(){window.removeEventListener('pointermove',mv);window.removeEventListener('pointerup',up)};
+  window.addEventListener('pointermove',mv);window.addEventListener('pointerup',up);
+}
+function play(){
+  playing=true;$('#play').textContent=T[lang].play_b;
+  if(phDay>=TOTAL-1)phDay=0;
+  var last=performance.now();
+  (function step(now){
+    if(!playing)return;
+    phDay+=(now-last)/1000*10;last=now;      // 10 days per real second
+    if(phDay>=TOTAL-1){phDay=TOTAL-1;setPH(phDay,true);stop();return}
+    setPH(phDay,true);raf=requestAnimationFrame(step);
+  })(last);
+}
+function stop(){playing=false;if(raf)cancelAnimationFrame(raf);var b=$('#play');if(b)b.textContent=T[lang].play_a}
+function setPH(d,scroll){
+  phDay=d;var t=T[lang],x=G+d*PX;
+  $('#ph').style.left=x+'px';
+  var day=Math.floor(d+0.0001);
+  $('#tc').textContent=tcOf(d);
+  var line1='',cur=-1;
+  DATES.forEach(function(ds,i){var s0=dayOf(ds),e0=(i<DATES.length-1)?dayOf(DATES[i+1]):s0+7;if(day>=s0&&day<e0)cur=i});
+  if(d<0||day<dayOf(DATES[0])) line1=t.mon_before;
+  else if(day>=dayOf(DATES[9])+7) line1=t.mon_after;
+  else line1='V1 · '+(cur+1)+' · '+t.s[cur];
+  $('#l1').textContent=fmt(day)+'  ·  '+line1;
+  var DD=['2026-10-18','2026-11-06','2026-12-12','2027-02-16'],nx=-1;
+  for(var i=0;i<DD.length;i++){if(dayOf(DD[i])>=day){nx=i;break}}
+  var l2=(nx>=0)?('A1 · '+t.mon_next+': '+t.dv[nx]+' ('+fmt(dayOf(DD[nx])).slice(0,5)+')'):t.mon_none;
+  if(cur>=0&&t.sn[cur])l2+='  ·  '+t.sn[cur];
+  $('#l2').textContent=l2;
+  if(scroll){var sc=$('#nlescroll');var vis=sc.clientWidth;if(x<sc.scrollLeft+G+20||x>sc.scrollLeft+vis-40)sc.scrollLeft=Math.max(0,x-vis/2)}
+}
+
+function show(id,scroll){
+  if(!$('#'+id)||!$('#'+id).classList.contains('panel'))id='presentacio';
+  $$('.panel').forEach(function(p){p.classList.toggle('on',p.id===id)});
+  $$('[data-go]').forEach(function(b){b.classList.toggle('on',b.getAttribute('data-go')===id)});
+  if(scroll)$('#main').scrollIntoView({behavior:'smooth',block:'start'});
+}
+$$('[data-go]').forEach(function(b){b.onclick=function(){var id=b.getAttribute('data-go');try{history.replaceState(null,'','#'+id)}catch(e){location.hash=id}show(id,true)}});
+$$('[data-act]').forEach(function(b){b.onclick=function(){
+  var id=b.getAttribute('data-act');
+  $$('.detail').forEach(function(d){d.classList.toggle('on',d.id===id&&!d.classList.contains('on'))});
+  $$('[data-act]').forEach(function(x){x.classList.toggle('on',x===b&&$('#'+id).classList.contains('on'))});
+}});
+$$('[data-lang]').forEach(function(b){b.onclick=function(){lang=b.getAttribute('data-lang');store('pf-lang',lang);render()}});
+$('#toggleTodo').onclick=function(){document.body.classList.toggle('hide-todo');syncTodoBtn()};
+
+var sl=store('pf-lang');if(sl&&T[sl])lang=sl;
+render();
+show((location.hash||'').slice(1)||'presentacio',false);
+window.addEventListener('hashchange',function(){show((location.hash||'').slice(1),true)});
+})();
+
+(function(){var el=document.getElementById('vftc'),t0=performance.now(),z=function(n){return('0'+n).slice(-2)};
+function tick(){var ms=performance.now()-t0,f=Math.floor(ms/40)%25,sc=Math.floor(ms/1000)%60,mn=Math.floor(ms/60000)%60,h=Math.floor(ms/3600000);el.textContent=z(h)+':'+z(mn)+':'+z(sc)+':'+z(f)}
+var slow=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;tick();setInterval(tick,1000)})();
+</script>
+</body>
+</html>
